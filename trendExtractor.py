@@ -25,7 +25,7 @@ stopWordList = ['a','about','above','across','after','again','against','all','al
 'rather','really','right','room','rooms','s','said','same','saw','say','says','second','seconds','see','seem','seemed',
 'seeming','seems','sees','several','shall','she','should','show','showed','showing','shows','side','sides','since',
 'small','smaller','smallest','so','some','somebody','someone','something','somewhere','state','states','still',
-'such','sure','take','taken','than','that','the','their','them','then','there','therefore','these','they','thing',
+'such','sure','t','take','taken','than','that','the','their','them','then','there','therefore','these','they','thing',
 'things','think','thinks','this','those','though','thought','thoughts','three','through','thus','to','today','together',
 'too','took','toward','turn','turned','turning','turns','two','u','under','until','up','upon','us','use','used','uses',
 'v','very','w','want','wanted','wanting','wants','was','way','ways','we','well','wells','went','were','what','when','where',
@@ -38,7 +38,7 @@ for city in dataLocation:
     trendsList = {}
     for tweet in dataLocation[city]:
         tweet=tweet["text"]
-        tweet = re.sub('[^a-zA-Z0-9@#]',' ',tweet)
+        tweet = re.sub('[^a-zA-Z0-9@#!?&%$]',' ',tweet)
         tweet=tweet.split()
         for word in tweet:
             if word.lower() not in stopWordList:
