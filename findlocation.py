@@ -1,11 +1,8 @@
 import locations
-import tweepy
-import library
 import fnmatch
 import os
 import json
 import cjson
-import time
 import math
 
 _required_fields = ('text', 'created_at', 'user', 'entities', 'id',
@@ -28,13 +25,10 @@ class FindLocation(object):
         '''
         nearest_city_id = city_coordinates[0][0]
         identifier = 0
-        #print geocode
-        #print city_coordinates
         minimum = math.sqrt(math.pow(float(city_coordinates[0][1][0]) - float(geocode[0]), 2) +
                         math.pow(float(city_coordinates[0][1][1]) - float(geocode[1]), 2))
         for city in city_coordinates:
           identifier += 1
-          #print city
           temp = math.sqrt(math.pow(float(city[1][0]) - float(geocode[0]), 2) +
                            math.pow(float(city[1][1]) - float(geocode[1]), 2))
           if temp < minimum:
@@ -56,7 +50,6 @@ class FindLocation(object):
                             continue
                         if "text" in line:
                             '''Filtering tweets from the United States and the Arabian Peninsula'''
-                            #print line;
                             tweet = {}
                             tweet["text"] = line["text"]
                             tweet["coordinates"] = line["coordinates"]
@@ -65,20 +58,11 @@ class FindLocation(object):
                                 continue
                             if city is not None:
                                 if city in self.locationTweetsDict.keys():
-                                    #print "city exists"
-                                    #print city
-                                    #print self.locationTweetsDict[city]
                                     self.locationTweetsDict[city].append(dict(tweet))
-                                    #print tweet
-                                    #print dict(tweet)
                                 else:
-                                    #print "city does not exist"
-                                    #print city
                                     self.locationTweetsDict[city] = []
                                     self.locationTweetsDict[city].append(dict(tweet))
-                                    #print tweet
-                                    #print dict(tweet)
-        f = open('locationDict.txt','w')
+        f = open('locationDict.json','w')
         f.writelines(json.dumps(self.locationTweetsDict))
 
 class Filter(object):
